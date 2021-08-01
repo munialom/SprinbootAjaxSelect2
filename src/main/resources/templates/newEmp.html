@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <link th:href="@{/assets/css/select2.min.css}" rel="stylesheet" />
+<script th:src="@{/assets/js/select2.min.js}"></script>
+
+</head>
+<body>
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4 mt-5">
+            <form method="post" th:object="${emps}">
+
+                <div class="form-group">
+                    <label for="birthplace">Employee Name</label>
+                    <select id="emp" class="form-control select2-single" th:field="*{empName}">
+                        <option value="">Search employee</option>
+                    </select>
+                </div>
+
+            
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+	
+	
+    $("#emp").select2({
+      
+        ajax: {
+            url: '/api/employees',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+	
+	
+});
+
+
+
+</script>
+
+
+</body>
+</html>
